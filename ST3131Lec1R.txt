@@ -1,0 +1,83 @@
+##################################
+## R codes for  Lecture notes 1 ##
+##################################
+
+##########################################################################
+### Illustrating Example
+
+## create data object
+ X = c(1.0, 1.5, 2.1, 2.9, 3.2, 3.9)   
+ Y = c(0.60, 2.00, 1.06, 3.44, 1.17, 3.54) 
+
+## Scatter plot
+ plot(X, Y)  
+
+## Fit the regression model
+ y.fit = lm(Y~X)
+ abline(y.fit,col ="blue")  # add the fitted line to the scatter plot
+
+## Extract fitted results
+ summary(y.fit)
+ res = y.fit$resid
+ fitted = y.fit$fitted
+
+ cbind(X, Y, fitted, residuals)
+
+## Prediction at new values
+  Xnew = c(2,3,4)
+  Ynew = predict(y.fit, list(X=Xnew), interval = "confidence")
+
+  cbind(Xnew,Ynew)
+
+
+########################################################################
+###  Mascle Mass Example 
+
+## Input data from file
+  MM.dat = read.table(file="D://Rsession/MuscleMass.txt",header=TRUE) 
+
+## Draw scatter plot
+  mass=MM.dat$mass
+  age=MM.dat$age
+  plot(age, mass, main="Scatter plot of mass vs. age")
+
+## Fit the LRM
+  MM.fit=lm(mass~age)
+
+## Extract fitted results
+  summary(MM.fit)
+  r=MM.fit$resi
+  fitted = MM.fit$fitted
+
+## Plot residual against fitted values
+  plot(fitted, r, main="Residual plot against fitted values")
+
+
+########################################################################
+### Birth rate example
+
+## Input data
+  BR.dat=read.table(file="D://Rsession/poverty.txt") 
+
+## Make variables in BR.dat available
+  attach(BR.dat)
+
+## Scatter plot
+  plot(PovPct, TeenBrth)
+
+## Fit the LRM
+  BR.fit=lm(TeenBrth~PovPct,data=BR.dat)
+
+## Extract fitted results
+   summary(BR.fit)
+
+## Compute confidence intervals for regression parameters
+  confint(BR.fit, level = 0.95)
+
+## Confidence interval and prediction interval at PovPct = 30  
+  EYnew =predict(BR.fit, list(PovPct=30), interval = "confidence")
+  Ynew =predict(BR.fit, list(PovPct=30), interval = "prediction")
+
+
+###########################################################################
+
