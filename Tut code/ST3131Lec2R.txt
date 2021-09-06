@@ -1,0 +1,96 @@
+##########################
+###  ST3131 Lecture 2  ###
+##########################
+
+###########################################################################
+## Dwaine Studios
+
+sales.dat=read.table("D://Rsession/DwaineStudios.txt")
+  # read.table("D://Rsession/DwaineStudiosV2.txt")
+  # read.table("D://Rsession/DwaineStudiosV2.txt",header=TRUE)
+attach(sales.dat)
+
+y=sales; x1=num.persons; x2=income
+
+sales.fit = lm(y~x1+x2); summary(sales.fit)
+anova(sales.fit)
+
+###########################################################################
+## Patient Satisfaction example
+PS.dat=read.table("D://Rsession/PatientSatisfaction.txt",header=TRUE)
+attach(PS.dat)
+y=p.score; x1=p.age; x2=severity; x3=anxiety
+
+par(mfrow=c(2,2))
+plot(x1,y,main="Satisfaction vs. age")
+plot(x2,y,main="Satisfaction vs. severity")
+plot(x3,y,main="Satisfaction vs. anxiety")
+
+PS.fit = lm(y~x1+x2+x3)
+summary(PS.fit)
+anova(PS.fit)
+
+r = PS.fit$resid
+yhat = PS.fit$fitted
+b = PS.fit$coef
+V = vcov(PS.fit)
+
+bb = PS.fit$coef; VV = vcov(PS.fit)
+b = bb[-1]; V = VV[-1,-1]
+W =t(b)%*%solve(V)%*%b; F= W/3 
+
+confint(PS.fit, level = 0.95)
+
+xnew =list(x1=50,x2=51,x3=2.3)
+predict(PS.fit,newdata=xnew,interval="confidence",level=.95)
+predict(PS.fit,newdata=xnew,interval="prediction",level=.95)
+
+################################################################################
+## Home Price Example
+
+prices.dat = read.csv(file="D://Rsession/homeprices.csv", header = TRUE)
+X = prices.dat[,1:6]
+X = as.matrix(X)
+price = prices.dat[,7]
+bedroom = X[,1]
+bathroom = X[,2]
+area = X[,3]
+size = X[,4]
+year = X[,5]
+tax = X[,6]
+par(mfrow=c(2,3))
+plot(bedroom, price)
+plot(bathroom, price)
+plot(bathroom, price)
+plot(area, price)
+plot(year, price)
+plot(tax, price)
+
+price.fit = lm(price~bedroom + bathroom + area + size + year + tax,x=TRUE)
+summary(price.fit)
+confint(price.fit, level = 0.95)
+b = price.fit$coef
+V = vcov (price.fit)
+
+x0=c(1,3,1,1050,6000,1948,6306)
+y0=t(x0)%*%b
+
+sigma=summary(price.fit)$sigma
+
+sF = sqrt(t(x0)%*%V%*%x0)
+sP = sqrt(t(x0)%*%V%*%x0 +sigma^2)
+t = qt(0.975,78)
+cI = c(y0-sF*t, y0+sF*t)
+pI = c(y0-sP*t, y0+sP*t)
+
+
+xnew =list(bedroom=3,bathroom=1,area=1050,size=6000,year=1948,tax=6303)
+predict(price.fit,newdata=xnew,interval="confidence",level=.95)
+predict(price.fit,newdata=xnew,interval="prediction",level=.95)
+
+#xnew =list(bedroom=c(4,3),bathroom=c(2,1),area=c(2000,1050),size=c(7000,6000),year=c(1948,1948),tax=c(6750,6303))
+
+
+##########################################################################################
+
+
