@@ -5,7 +5,7 @@
 
 ####################################################################
 ## Question 1 
-q1.dat = read.table("D://Rsession/calculator.txt",header=TRUE)
+q1.dat = read.table("Datasets/calculator.txt",header=TRUE)
 y = q1.dat$service.time; x=q1.dat$machine.num
 
 # (a), (b)
@@ -44,7 +44,7 @@ qt(0.95,16)
 
 ######################################################################
 ## Question 2
-q2.dat = read.table("D://Rsession/airfreight.txt",header=TRUE)
+q2.dat = read.table("Datasets/airfreight.txt",header=TRUE)
 y = q2.dat$break.num; x=q2.dat$tran.times
 
 q2.fit=lm(y~x); summary(q2.fit)

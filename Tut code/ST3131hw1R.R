@@ -3,7 +3,7 @@
 #############################################################################
 ##Question 1 
 
-  q1.dat=read.table("D://Rsession/AdverImpact.txt",header=TRUE) # (ia)
+  q1.dat=read.table("Datasets/AdverImpact.txt",header=TRUE) # (ia)
 
   y=q1.dat$impre; x=q1.dat$adver                                # (ib)
 
@@ -19,7 +19,7 @@
 
 #############################################################################
 ## Question 2
-q2.dat = read.table("D://Rsession/GPA.txt",header=TRUE)
+q2.dat = read.table("Datasets/GPA.txt",header=TRUE)
 attach(q2.dat)
 
 q2.fit = lm(GPA~ACT,data=q2.dat)

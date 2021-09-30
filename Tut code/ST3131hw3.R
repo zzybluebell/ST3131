@@ -5,7 +5,7 @@
 ####################################################################
 ## Question 1
 
-  q1.dat = read.table("D://Rsession/brand.txt",header=TRUE)
+  q1.dat = read.table("Datasets/brand.txt",header=TRUE)
   y = q1.dat$degree; x1=q1.dat$moisture; x2=q1.dat$sweetness
 
 # (a)
@@ -26,7 +26,7 @@
 
 ############################################################################
 ## Question 2 
-  SMSA.dat = read.table("D://Rsession/SMSA.txt",header=TRUE)
+  SMSA.dat = read.table("Datasets/SMSA.txt",header=TRUE)
   attach(SMSA.dat)
   y1=doctor; x11=T.p; x12=Land; x13=income; x21=x11/x12; x22=P.city; x23=x13
 
@@ -65,7 +65,7 @@
 ## Question 3
 
 # (a)
-q3.dat = read.table("D://Rsession/ChemShip.txt",header=TRUE)
+q3.dat = read.table("Datasets/ChemShip.txt",header=TRUE)
 y=q3.dat$time; x1=q3.dat$number; x2=q3.dat$weight; Z=cbind(x1,x2)
 q3.fit=lm(y~x1+x2)
 summary(q3.fit)
