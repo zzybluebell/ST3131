@@ -18,7 +18,7 @@
 ##################################################################
 ## Question 2
 
-q3.dat = read.table("Datasets/ChemShip.txt",header=TRUE)
+q3.dat = read.table("D://Rsession/ChemShip.txt",header=TRUE)
 y=q3.dat$time; x1=q3.dat$number; x2=q3.dat$weight
 q3.fit=lm(y~x1+x2)
 summary(q3.fit)
